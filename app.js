@@ -1,29 +1,48 @@
 const express = require("express")
 const app = express()
-const port = 3000
+const port = 7000
 
 app.use(express.json())
 
-let users = [{id : 1,name : "Hemanth"}];
-let orders = [{id : 1,name : "phone"}];
+let category = [{id : 1,name : "Electronics"}];
+let products = [{id : 1,name : "phone"}];
 
-app.get("/orders",(req,res)=>{
-    res.status(200).json(orders).send(`Here is the List Of All Orders ${orders}`)
+app.get("/products",(req,res)=>{
+    res.status(200).json({
+        message : `Here is the List Of All Products products`,
+        data : products
+    })
 })
-app.get("/users",(req,res)=>{
-    res.status(200).json(users).send(`Here is the List Of All Users ${users}`)
+
+app.get("/category",(req,res)=>{
+    res.status(200).json({
+        message : `Here is the List Of All category category`,
+        data : category
+    })
 })
-app.post("/orders",(req,res)=>{
+
+app.post("/products",(req,res)=>{
     let {name} = req.body
-    let obj = {id : orders.length+1 , name}
-    orders.push(obj)
-    res.status(201).json(obj).send(`Here is the List Of All Orders ${orders}`)
+    let obj = {id : products.length+1 , name}
+    products.push(obj)
+    res.status(201).json({
+        message : `Here is the List Of All Products`,
+        data : obj
+    })
 })
-app.post("/users",(req,res)=>{
+
+app.post("/category",(req,res)=>{
     let {name} = req.body
-    let obj = {id : users.length+1 , name}
-    users.push(obj)
-    res.status(201).json(obj).send(`Here is the List Of All Orders ${users}`)
+    let obj = {id : category.length+1 , name}
+    category.push(obj)
+    res.status(201).json({
+        message : `Here is the List Of All category`,
+        data : obj
+    })
+})
+
+app.use((req,res)=>{
+    res.status(404).send(`<h1>404 - Page Not Found</h1>`)
 })
 
 app.listen(port,()=>{
