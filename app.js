@@ -1,11 +1,16 @@
 const express = require("express")
 const app = express()
-const port = 7000
+const port = 7004
 
 app.use(express.json())
 
 let category = [{id : 1,name : "Electronics"}];
 let products = [{id : 1,name : "phone"}];
+
+app.use((req,res,next)=>{
+    console.log(`${req.method} request made to ${req.url}`)
+    next()
+})
 
 app.get("/products",(req,res)=>{
     res.status(200).json({
